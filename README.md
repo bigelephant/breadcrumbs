@@ -1,4 +1,1 @@
-breadcrumbs
-===========
-
-Breadcrumbs component designed for Laravel
+# BigElephant BreadCrumbs
