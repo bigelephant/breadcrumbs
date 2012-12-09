@@ -1,6 +1,8 @@
 <?php namespace BigElephant\Breadcrumbs;
 
-class Breadcrumbs implements \Countable, \IteratorAggregate {
+use IteratorAggregate;
+
+class Breadcrumbs implements \Countable, IteratorAggregate {
 
 	/**
 	 * The array of crumbs.
