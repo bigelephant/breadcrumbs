@@ -2,8 +2,9 @@
 
 use IteratorAggregate;
 use ArrayIterator;
+use Countable;
 
-class Breadcrumbs implements \Countable, IteratorAggregate {
+class Breadcrumbs implements Countable, IteratorAggregate {
 
 	/**
 	 * The array of crumbs.
