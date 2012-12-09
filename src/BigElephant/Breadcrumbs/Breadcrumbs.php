@@ -31,27 +31,6 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 	}
 
 	/**
-	 * Add a crumb, is chainable.
-	 *
-	 * @param string title
-	 * @param string href
-	 *
-	 * @return BigElephant\Breadcrumbs\Breadcrumbs
-	 */
-	public function add($title, $href)
-	{
-		$this->crumbs[count($this->crumbs) - 1]['active'] = false;
-
-		$this->crumbs[] = array(
-			'title' => $title,
-			'href' => $href,
-			'active' => true
-		);
-
-		return $this;
-	}
-
-	/**
 	 * Get own instance, mainly for the laravel facade.
 	 *
 	 * @return BigElephant\Breadcrumbs\Breadcrumbs
@@ -62,17 +41,58 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 	}
 
 	/**
+	 * Add a crumb, is chainable.
+	 *
+	 * @param string title
+	 * @param string href
+	 *
+	 * @return BigElephant\Breadcrumbs\Breadcrumbs
+	 */
+	public function add($title, $href)
+	{
+		foreach ($this->crumbs AS &$crumb)
+		{
+			$crumb['active'] = false;
+		}
+
+		$this->crumbs[] = array(
+			'title' => $title,
+			'href' => $href,
+			'active' => true,
+		);
+
+		return $this;
+	}
+
+	public function prepend($title, $href)
+	{
+		array_unshift($this->crumbs, array(
+			'title' => $title,
+			'href' => $href
+		));
+
+		return $this;
+	}
+
+	public function prependCrumbs(array $crumbs)
+	{
+		return $this->addCrumbs($crumbs, true);
+	}
+
+	/**
 	 * Add a bunch of crumbs.
 	 *
 	 * @param array crumbs
 	 *
 	 * @return BigElephant\Breadcrumbs\Breadcrumbs
 	 */
-	public function addCrumbs(array $crumbs)
+	public function addCrumbs(array $crumbs, $prepend = false)
 	{
+		$method = $prepend ? 'prepend' : 'add';
+
 		foreach ($crumbs AS $crumb)
 		{
-			$this->add($crumb['title'], $crumb['href']);
+			$this->$method($crumb['title'], $crumb['href']);
 		}
 
 		return $this;

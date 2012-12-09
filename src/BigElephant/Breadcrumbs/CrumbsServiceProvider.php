@@ -36,7 +36,7 @@ class CrumbsServiceProvider extends ServiceProvider {
 	{
 		$app = $this->app;
 
-		$app->before(function($request, $response) use ($app)
+		$app->after(function($request, $response) use ($app)
 		{
 			$crumbs = array();
 
