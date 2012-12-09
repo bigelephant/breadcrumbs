@@ -1,6 +1,6 @@
 <?php namespace BigElephant\Breadcrumbs\Facades;
 
-class Crumbs extends Illuminate\Support\Fascades\Facade {
+class Crumbs extends \Illuminate\Support\Facades\Facade {
 
 	/**
 	 * Get the registered name of the component.
