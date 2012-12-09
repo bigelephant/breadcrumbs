@@ -21,6 +21,38 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 	}
 
 	/**
+	 * Get a new breadcrumbs instance.
+	 *
+	 * @param  array  $items
+	 */
+	public function make(array $items)
+	{
+		return new self($items);
+	}
+
+	/**
+	 * Add a crumb, is chainable.
+	 *
+	 * @param string 	title
+	 * @param string 	href
+	 * @param array 	optons
+	 *
+	 * @return BigElephant\Breadcrumbs\Breadcrumbs
+	 */
+	public function add($title, $href, array $options = array())
+	{
+		$this->crumbs[count($this->crumbs) - 1]['active'] = false;
+
+		$this->crumbs[] = array(
+			'title' => $title,
+			'href' => $href,
+			'active' => true
+		);
+
+		return $this;
+	}
+
+	/**
 	 * Get an iterator for the crumbs.
 	 *
 	 * @return ArrayIterator
@@ -39,6 +71,4 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 	{
 		return count($this->crumbs);
 	}
-
-	public function test() { echo 'test'; }
 }
