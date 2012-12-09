@@ -33,13 +33,12 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 	/**
 	 * Add a crumb, is chainable.
 	 *
-	 * @param string 	title
-	 * @param string 	href
-	 * @param array 	optons
+	 * @param string title
+	 * @param string href
 	 *
 	 * @return BigElephant\Breadcrumbs\Breadcrumbs
 	 */
-	public function add($title, $href, array $options = array())
+	public function add($title, $href)
 	{
 		$this->crumbs[count($this->crumbs) - 1]['active'] = false;
 
@@ -48,6 +47,23 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 			'href' => $href,
 			'active' => true
 		);
+
+		return $this;
+	}
+
+	/**
+	 * Add a bunch of crumbs.
+	 *
+	 * @param array crumbs
+	 *
+	 * @return BigElephant\Breadcrumbs\Breadcrumbs
+	 */
+	public function addCrumbs(array $crumbs)
+	{
+		foreach ($crumbs AS $crumb)
+		{
+			$this->add($crumb['title'], $crumb['href']);
+		}
 
 		return $this;
 	}
