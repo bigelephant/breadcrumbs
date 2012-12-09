@@ -1,6 +1,7 @@
 <?php namespace BigElephant\Breadcrumbs;
 
 use Illuminate\Support\ServiceProvider;
+use BigElephant\Router;
 
 class CrumbsServiceProvider extends ServiceProvider {
 
@@ -14,6 +15,11 @@ class CrumbsServiceProvider extends ServiceProvider {
 		$this->app['crumbs'] = $this->app->share(function($app)
 		{
 			return new Breadcrumbs;
+		});
+
+		$this->app['router'] = $this->app->share(function($app)
+		{
+			return new Router($app);
 		});
 	}
 
