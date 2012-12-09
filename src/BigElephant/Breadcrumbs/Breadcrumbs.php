@@ -1,6 +1,7 @@
 <?php namespace BigElephant\Breadcrumbs;
 
 use IteratorAggregate;
+use ArrayIterator;
 
 class Breadcrumbs implements \Countable, IteratorAggregate {
 
@@ -17,9 +18,9 @@ class Breadcrumbs implements \Countable, IteratorAggregate {
 	 * @param  array  $items
 	 * @return void
 	 */
-	public function __construct(array $items = array())
+	public function __construct(array $crumbs = array())
 	{
-		$this->items = $items;
+		$this->crumbs = $crumbs;
 	}
 
 	/**

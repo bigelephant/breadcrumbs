@@ -40,9 +40,20 @@ class CrumbsServiceProvider extends ServiceProvider {
 		{
 			$crumbs = array();
 
-			if ( ! empty($app['config']['breadcrumbs.home_crumb']))
+			$route = $app['router']->getCurrentRoute();
+			if ($route->getOption('title'))
 			{
-				$homeCrumb = $app['config']['breadcrumbs.home_crumb'];
+				$routeName = $route->getOption('as') ? $route->getOption('as') : md5($route->getRequirement('_method').$route->getPattern());
+
+				$crumbs[] = array(
+					'title' => $route->getOption('title'),
+					'href' => $app['url']->route($routeName)
+				);
+			}
+
+			if ( ! empty($app['config']['view.home_crumb']))
+			{
+				$homeCrumb = $app['config']['view.home_crumb'];
 				if ( ! empty($homeCrumb['route']))
 				{
 					$homeCrumb['href'] = $app['url']->route($homeCrumb['home']);
@@ -55,38 +66,7 @@ class CrumbsServiceProvider extends ServiceProvider {
 				$crumbs[] = $homeCrumb;
 			}
 
-			$route = $app['router']->getCurrentRoute();
-			if ($route->getOption('title'))
-			{
-				$crumbs[] = array(
-					'title' => $route->getOption('title'),
-					'href' => $app['url']->route($route->getPattern())
-				);
-			}
-
 			$app['crumbs']->addCrumbs($crumbs);
-		});
-	}
-
-	protected function registerAuthEvents()
-	{
-		$app = $this->app;
-
-		$app->after(function($request, $response) use ($app)
-		{
-			// If the authentication service has been used, we'll check for any cookies
-			// that may be queued by the service. These cookies are all queued until
-			// they are attached onto Response objects at the end of the requests.
-			if (isset($app['auth.loaded']))
-			{
-				foreach ($app['auth']->getDrivers() as $driver)
-				{
-					foreach ($driver->getQueuedCookies() as $cookie)
-					{
-						$response->headers->setCookie($cookie);
-					}
-				}
-			}
 		});
 	}
 
