@@ -52,6 +52,16 @@ class Breadcrumbs implements \Countable, \IteratorAggregate {
 	}
 
 	/**
+	 * Get own instance, mainly for the laravel facade.
+	 *
+	 * @return BigElephant\Breadcrumbs\Breadcrumbs
+	 */
+	public function get()
+	{
+		return $this;
+	}
+
+	/**
 	 * Add a bunch of crumbs.
 	 *
 	 * @param array crumbs

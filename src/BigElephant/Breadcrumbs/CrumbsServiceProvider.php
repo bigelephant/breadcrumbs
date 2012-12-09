@@ -36,7 +36,7 @@ class CrumbsServiceProvider extends ServiceProvider {
 	{
 		$app = $this->app;
 
-		$app->after(function($request, $response) use ($app)
+		$app->before(function($request, $response) use ($app)
 		{
 			$crumbs = array();
 
@@ -55,7 +55,7 @@ class CrumbsServiceProvider extends ServiceProvider {
 				$crumbs[] = $homeCrumb;
 			}
 
-			$route = $app['route']->getCurrentRoute();
+			$route = $app['router']->getCurrentRoute();
 			if ($route->getOption('title'))
 			{
 				$crumbs[] = array(
