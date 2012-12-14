@@ -1,5 +1,6 @@
 <?php namespace BigElephant\Routing;
 
+use Illuminate\Container;
 use Illuminate\Routing;
 use Illuminate\Routing\Router as BaseRouter;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,12 +47,12 @@ class Router extends BaseRouter {
 
 		if (isset($action['title']))
 		{
-			$route->setOptional('title', $action['title']);
+			$route->setOption('title', $action['title']);
 		}
 
 		if (isset($action['as']))
 		{
-			$route->setOptional('as', $action['as']);
+			$route->setOption('as', $action['as']);
 		}
 	}
 

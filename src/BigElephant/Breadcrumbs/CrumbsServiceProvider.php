@@ -1,7 +1,7 @@
 <?php namespace BigElephant\Breadcrumbs;
 
 use Illuminate\Support\ServiceProvider;
-use BigElephant\Router;
+use BigElephant\Routing;
 
 class CrumbsServiceProvider extends ServiceProvider {
 
@@ -17,10 +17,20 @@ class CrumbsServiceProvider extends ServiceProvider {
 			return new Breadcrumbs;
 		});
 
-		$this->app['router'] = $this->app->share(function($app)
+		$crumb = $this->app->config['view.home_crumb'];
+		if ( ! empty($crumb))
 		{
-			return new Router($app);
-		});
+			if ( ! empty($crumb['route']))
+			{
+				$crumb['href'] = $this->app->url->route($crumb['home']);
+			}
+			else if ( ! empty($crumb['uri']))
+			{
+				$crumb['href'] = $this->app->url->to($crumb['uri']);
+			}
+
+			$this->app->add($crumb['title'], $crumb['href']);
+		}
 	}
 
 	/**

@@ -14,7 +14,8 @@
 	},
 	"autoload": {
 		"psr-0": {
-			"BigElephant\\Breadcrumbs": "src/"
+			"BigElephant\\Breadcrumbs": "src/",
+			"BigElephant\\Routing": "src/"
 		}
 	},
 	"extra": {
