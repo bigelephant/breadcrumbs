@@ -29,7 +29,7 @@ class CrumbsServiceProvider extends ServiceProvider {
 				$crumb['href'] = $this->app->url->to($crumb['uri']);
 			}
 
-			$this->app->add($crumb['title'], $crumb['href']);
+			$this->app->crumbs->add($crumb['title'], $crumb['href']);
 		}
 	}
 

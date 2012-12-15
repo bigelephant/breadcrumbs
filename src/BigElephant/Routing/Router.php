@@ -1,37 +1,11 @@
 <?php namespace BigElephant\Routing;
 
 use Illuminate\Container;
-use Illuminate\Routing;
+use Illuminate\Routing\Route;
 use Illuminate\Routing\Router as BaseRouter;
 use Symfony\Component\HttpFoundation\Request;
 
 class Router extends BaseRouter {
-
-	/**
-	 * Create a new router instance.
-	 *
-	 * @param  Illuminate\Container  $container
-	 * @return void
-	 */
-	public function __construct(Container $container = null)
-	{
-		parent::__construct($container);
-
-		if ( ! empty($container['config']['view.home_crumb']))
-		{
-			$homeCrumb = $container['config']['view.home_crumb'];
-			if ( ! empty($homeCrumb['route']))
-			{
-				$homeCrumb['href'] = $container['url']->route($homeCrumb['home']);
-			}
-			else if ( ! empty($homeCrumb['uri']))
-			{
-				$homeCrumb['href'] = $container['url']->to($homeCrumb['uri']);
-			}
-
-			$container['crumbs']->addCrumbs(array($homeCrumb));
-		}
-	}
 
 	/**
 	 * Set the attributes and requirements on the route.
